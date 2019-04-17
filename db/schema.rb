@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 2019_04_17_163059) do
     t.datetime "published_at"
     t.datetime "unpublished_at"
     t.integer "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "api_id"
     t.string "api_source"
   end

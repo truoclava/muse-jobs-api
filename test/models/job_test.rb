@@ -10,6 +10,8 @@
 #  published_at   :datetime
 #  unpublished_at :datetime
 #  company_id     :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #  api_id         :string
 #  api_source     :string
 #
