@@ -10,16 +10,22 @@
 #  published_at   :datetime
 #  unpublished_at :datetime
 #  company_id     :integer
+#  api_id         :string
+#  api_source     :string
 #
 
 require 'pry'
 
 class Job < ApplicationRecord
-  belongs_to :company
-  has_many :job_locatons, dependent: :destroy
+  belongs_to :company, autosave: true
+  has_many :job_locations, dependent: :destroy
   has_many :locations, through: :job_locations
   has_many :job_categories
   has_many :categories, through: :job_categories
+
+  accepts_nested_attributes_for :categories
+  accepts_nested_attributes_for :locations
+  # accepts_nested_attributes_for :company
 
   enum level: {
     internship: 0,
@@ -32,6 +38,7 @@ class Job < ApplicationRecord
   validates :company_id, presence: true
   validates :level, presence: true, if: proc { |r| r.published? }
   validates :description, presence: true, if: proc { |r| r.published? }
+  after_validation :set_associated_records
 
   before_save :set_published_timestamp, if: :published_changed?
 
@@ -42,6 +49,16 @@ class Job < ApplicationRecord
       self.published_at ||= Time.current
     else
       self.unpublished_at ||= Time.current
+    end
+  end
+
+  def set_associated_records
+    self.locations = locations.map do |obj|
+      Location.where(name: obj.name).first_or_initialize
+    end
+
+    self.categories = categories.map do |obj|
+      Category.where(name: obj.name).first_or_initialize
     end
   end
 

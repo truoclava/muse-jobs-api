@@ -8,6 +8,8 @@
 #  size        :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  api_id      :string
+#  api_source  :string
 #
 
 require 'test_helper'

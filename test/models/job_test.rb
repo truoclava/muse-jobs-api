@@ -10,6 +10,8 @@
 #  published_at   :datetime
 #  unpublished_at :datetime
 #  company_id     :integer
+#  api_id         :string
+#  api_source     :string
 #
 
 require 'test_helper'

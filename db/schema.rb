@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_10_162539) do
+ActiveRecord::Schema.define(version: 2019_04_17_163059) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 2019_04_10_162539) do
     t.integer "size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "api_id"
+    t.string "api_source"
   end
 
   create_table "company_industries", id: false, force: :cascade do |t|
@@ -68,6 +70,8 @@ ActiveRecord::Schema.define(version: 2019_04_10_162539) do
     t.datetime "published_at"
     t.datetime "unpublished_at"
     t.integer "company_id"
+    t.string "api_id"
+    t.string "api_source"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -77,6 +81,7 @@ ActiveRecord::Schema.define(version: 2019_04_10_162539) do
     t.boolean "remote"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
   end
 
 end

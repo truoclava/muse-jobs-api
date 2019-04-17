@@ -4,14 +4,25 @@ class Muse
 
   ENDPOINT = 'https://www.themuse.com/api/public'
 
-  def seed_jobs(location:, page: 0)
+  def fetch_jobs(location: nil, page: 0, company: nil)
+    query = {
+      page: page
+    }
+
+    query.merge!(company: company) if company
+    query.merge!(location: location) if location
+    request('jobs', query)
+  end
+
+  def fetch_companies(location: 'Hong Kong', page: 0)
     query = {
       location: location,
       page: page
     }
 
-    request('jobs', query)
+    request('companies', query)
   end
+
 
   private
 
@@ -23,7 +34,7 @@ class Muse
       query: query
     )
 
-    Rails.logger.warn("Muse.response: #{response.inspect}")
+    # Rails.logger.warn("Muse.response: #{response.inspect}")
 
     begin
       results = JSON.parse response.body
