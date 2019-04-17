@@ -19,6 +19,8 @@
 require 'pry'
 
 class Job < ApplicationRecord
+  include JobFiltersConcern
+
   belongs_to :company, autosave: true
   has_many :job_locations, dependent: :destroy
   has_many :locations, through: :job_locations
@@ -45,6 +47,7 @@ class Job < ApplicationRecord
   before_save :set_published_timestamp, if: :published_changed?
 
   scope :published, -> { where(published: true) }
+  scope :with_level, -> (levels) { where(level: levels) }
 
   def set_published_timestamp
     if published

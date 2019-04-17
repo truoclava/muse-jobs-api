@@ -30,7 +30,8 @@ namespace :db do
           locations_attributes: job['locations'],
           categories_attributes: job['categories'],
           api_id: job['id'],
-          api_source: 'The Muse'
+          api_source: 'The Muse',
+          published: true
         }
         company.jobs.new(params)
       end

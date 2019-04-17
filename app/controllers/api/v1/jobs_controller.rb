@@ -12,7 +12,7 @@ class Api::V1::JobsController < Api::V1Controller
   private
 
   def respond_with_jobs
-    jobs = Job.all
+    jobs = scoped_jobs(default_scope)
     paginated = paginate(jobs)
     paginated = load_includes(paginated)
 
@@ -31,5 +31,16 @@ class Api::V1::JobsController < Api::V1Controller
     jobs.includes(:categories, :company)
   end
 
+  def default_scope
+    params[:include_unpublished] ? Job.all : Job.published
+  end
+
+  def scoped_jobs(scope = nil)
+    scope
+    .by_levels(params[:levels])
+    .by_companies(params[:companies])
+    .by_locations(params[:locations])
+    .by_categories(params[:categories])
+  end
 
 end
