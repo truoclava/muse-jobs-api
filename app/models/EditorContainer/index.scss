@@ -1,0 +1,25 @@
+.EditorContainer {
+  padding: 0 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.Editor {
+  margin-top: 10px;
+  min-height: 150px;
+  padding: 10px;
+  border: 1px solid #e0e1e2;
+  border-radius: 5px;
+
+  img {
+    max-width: 75%;
+    width: 75%;
+  }
+}
+
+:global {
+  figure {
+    margin: 0;
+    padding: 0;
+  }
+}
